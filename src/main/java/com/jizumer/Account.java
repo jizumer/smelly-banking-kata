@@ -58,13 +58,13 @@ public class Account implements AccountService {
     }
 
     private double accumulateBalance() {
-        double accumulatedBalance = 0;
-        for (int i = 0; i < transactions.size(); i++) {
-            int year = transactions.get(i).first().getYear();
-            Integer amount = transactions.get(i).second();
-            accumulatedBalance += amount * (1 + calculateBonus(year) / 100);
-        }
-        return accumulatedBalance;
+
+        return transactions.stream().map(transaction -> {
+            int year = transaction.first().getYear();
+            Integer amount = transaction.second();
+            return amount * (1 + calculateBonus(year) / 100);
+        }).reduce(Double::sum).get();
+
     }
 
     private Double calculateBonus(int year) {
