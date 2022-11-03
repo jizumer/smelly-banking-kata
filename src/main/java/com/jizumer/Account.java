@@ -57,8 +57,7 @@ public class Account implements AccountService {
         double averageBalanceWithBonuses = 0;
         for (int i = 0; i < transactions.size(); i++) {
             int year = transactions.get(i).first().getYear();
-            Double bonus = calculateBonus(year);
-            averageBalanceWithBonuses += transactions.get(i).second() * (1 + bonus / 100);
+            averageBalanceWithBonuses += transactions.get(i).second() * (1 + calculateBonus(year) / 100);
         }
         return averageBalanceWithBonuses / transactions.size();
     }
