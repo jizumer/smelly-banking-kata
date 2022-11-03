@@ -20,21 +20,21 @@ public class Account implements AccountService {
     );
 
     public void deposit(LocalDate date, int amount) {
+        updateBalance(amount);
+        transactions.add(new Pair<>(date, amount));
+    }
+
+    public void withdraw(LocalDate date, int amount) {
+        updateBalance(-amount);
+        transactions.add(new Pair<>(date, -amount));
+    }
+
+    private void updateBalance(int amount) {
         Integer previousBalance = 0;
         if (balances.size() != 0) {
             previousBalance = balances.get(balances.size() - 1);
         }
         balances.add(previousBalance + amount);
-        transactions.add(new Pair<>(date, amount));
-    }
-
-    public void withdraw(LocalDate date, int amount) {
-        Integer previousBalance = 0;
-        if (balances.size() != 0) {
-            previousBalance = balances.get(balances.size() - 1);
-        }
-        balances.add(previousBalance - amount);
-        transactions.add(new Pair<>(date, -amount));
     }
 
     public void printStatement() {
@@ -58,7 +58,7 @@ public class Account implements AccountService {
     }
 
     private double accumulateBalance() {
-
+        //Creating a Transaction abstraction would help
         return transactions.stream().map(transaction -> {
             int year = transaction.first().getYear();
             Integer amount = transaction.second();
