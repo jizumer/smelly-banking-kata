@@ -1,9 +1,11 @@
 package com.jizumer;
 
-public interface AccountService {
-    void deposit(int amount);
+import java.time.LocalDate;
 
-    void withdraw(int amount);
+public interface AccountService {
+    void deposit(LocalDate date, int amount);
+
+    void withdraw(LocalDate date, int amount);
 
     void printStatement();
 }
