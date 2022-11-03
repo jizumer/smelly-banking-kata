@@ -10,6 +10,15 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
+    private List<Pair<Integer, Double>> yearlyBonuses = List.of(
+            new Pair(2018, 0.5),
+            new Pair(2019, 0.75),
+            new Pair(2020, 1.0),
+            new Pair(2021, 1.25),
+            new Pair(2022, 1.5),
+            new Pair(2023, 1.75)
+    );
+
     public void deposit(LocalDate date, int amount) {
         Integer previousBalance = 0;
         if (balances.size() != 0) {
@@ -36,11 +45,28 @@ public class Account implements AccountService {
         }
     }
 
-    public long calculateAverageBalance() {
-        Integer averageBalance = 0;
+    public double calculateAverageBalance() {
+        double averageBalance = 0;
         for (int i = 0; i < transactions.size(); i++) {
             averageBalance += transactions.get(i).second();
         }
         return averageBalance / transactions.size();
     }
+
+    public double calculateAverageBalanceWithBonuses() {
+        double averageBalanceWithBonuses = 0;
+        for (int i = 0; i < transactions.size(); i++) {
+            Double bonus = 1.0;
+            for (int j = 0; j < yearlyBonuses.size(); j++) {
+                if (yearlyBonuses.get(j).first() == transactions.get(i).first().getYear()) {
+                    bonus = yearlyBonuses.get(j).second();
+                    break;
+                }
+            }
+            averageBalanceWithBonuses += transactions.get(i).second() * (1 + bonus / 100);
+        }
+        return averageBalanceWithBonuses / transactions.size();
+    }
+
+
 }

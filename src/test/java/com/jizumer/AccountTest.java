@@ -64,7 +64,16 @@ public class AccountTest {
         account.deposit(LocalDate.of(2022, 7, 5), 1000);
         account.deposit(LocalDate.of(2022, 8, 1), 2000);
         account.withdraw(LocalDate.of(2022, 9, 15), 500);
-        assertEquals(833, account.calculateAverageBalance());
+        assertEquals(833.33, account.calculateAverageBalance(), 0.01);
+    }
+
+    @Test
+    public void shouldCalculateAverageBalanceWithBonuses() {
+        Account account = new Account();
+        account.deposit(LocalDate.of(2020, 7, 5), 1000);//1010
+        account.deposit(LocalDate.of(2021, 8, 1), 2000);//2025
+        account.withdraw(LocalDate.of(2022, 9, 15), 500);//507.5
+        assertEquals(842.5, account.calculateAverageBalanceWithBonuses(), 0.01);
     }
 
 }
