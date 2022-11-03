@@ -56,19 +56,26 @@ public class Account implements AccountService {
     public double calculateAverageBalanceWithBonuses() {
         double averageBalanceWithBonuses = 0;
         for (int i = 0; i < transactions.size(); i++) {
-            Double bonus = 1.0;
-            for (int j = 0; j < yearlyBonuses.size(); j++) {
-                if (yearlyBonuses.get(j).first() == transactions.get(i).first().getYear()) {
-                    bonus = yearlyBonuses.get(j).second();
-                    break;
-                }
-            }
-            if (bonus < 0) {
-                bonus = 0.0;
-            }
+            int year = transactions.get(i).first().getYear();
+            Double bonus = calculateBonus(year);
             averageBalanceWithBonuses += transactions.get(i).second() * (1 + bonus / 100);
         }
         return averageBalanceWithBonuses / transactions.size();
+    }
+
+    private Double calculateBonus(int year) {
+        Double bonus = 1.0;
+        for (int j = 0; j < yearlyBonuses.size(); j++) {
+
+            if (yearlyBonuses.get(j).first() == year) {
+                bonus = yearlyBonuses.get(j).second();
+                break;
+            }
+        }
+        if (bonus < 0) {
+            bonus = 0.0;
+        }
+        return bonus;
     }
 
 
