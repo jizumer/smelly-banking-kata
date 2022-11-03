@@ -76,4 +76,15 @@ public class AccountTest {
         assertEquals(842.5, account.calculateAverageBalanceWithBonuses(), 0.01);
     }
 
+
+    @Test
+    public void shouldCalculateAverageBalanceWithBonusesIgnoringNegativeBonuses() {
+        Account account = new Account();
+        account.deposit(LocalDate.of(2019, 1, 1), 1500);//1500 since negative bonus
+        account.deposit(LocalDate.of(2020, 7, 5), 1000);//1010
+        account.deposit(LocalDate.of(2021, 8, 1), 2000);//2025
+        account.withdraw(LocalDate.of(2022, 9, 15), 500);//507.5
+        assertEquals(1006.875, account.calculateAverageBalanceWithBonuses(), 0.01);
+    }
+
 }

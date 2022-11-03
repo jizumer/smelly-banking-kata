@@ -12,7 +12,7 @@ public class Account implements AccountService {
 
     private List<Pair<Integer, Double>> yearlyBonuses = List.of(
             new Pair(2018, 0.5),
-            new Pair(2019, 0.75),
+            new Pair(2019, -0.75),
             new Pair(2020, 1.0),
             new Pair(2021, 1.25),
             new Pair(2022, 1.5),
@@ -62,6 +62,9 @@ public class Account implements AccountService {
                     bonus = yearlyBonuses.get(j).second();
                     break;
                 }
+            }
+            if (bonus < 0) {
+                bonus = 0.0;
             }
             averageBalanceWithBonuses += transactions.get(i).second() * (1 + bonus / 100);
         }
