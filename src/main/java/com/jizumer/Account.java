@@ -1,5 +1,12 @@
 package com.jizumer;
-public class Account implements AccountService{
+
+import java.util.Date;
+import java.util.List;
+
+public class Account implements AccountService {
+
+    List<Pair<Date, Integer>> transactions;
+
     public void deposit(int amount) {
 
     }
@@ -9,6 +16,6 @@ public class Account implements AccountService{
     }
 
     public void printStatement() {
-
+        System.out.print("LOL");
     }
 }
