@@ -35,4 +35,12 @@ public class Account implements AccountService {
                     transactions.get(i).second() + "\t||\t" + balances.get(i));
         }
     }
+
+    public long calculateAverageBalance() {
+        Integer averageBalance = 0;
+        for (int i = 0; i < transactions.size(); i++) {
+            averageBalance += transactions.get(i).second();
+        }
+        return averageBalance / transactions.size();
+    }
 }
