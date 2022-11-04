@@ -36,16 +36,24 @@ public class Account implements AccountService {
     private Integer calculateBalance() {
         Integer previousBalance = 0;
         if (balances.size() != 0) {
-            previousBalance = balances.get(balances.size() - 1);
+            previousBalance = calculateCurrentBalance();
         }
         return previousBalance;
     }
+
+    private Integer calculateCurrentBalance() {
+        return balances.get(balances.size() - 1);
+    }
+    private Integer calculateBalanceByTransaction(int transactionNumber) {
+        return balances.get(transactionNumber);
+    }
+
 
     public void printStatement() {
         System.out.println("Date\t\t||\tAmount\t||\tBalance");
         for (int i = 0; i < transactions.size(); i++) {
             System.out.println(transactions.get(i).first().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")) + "\t||\t" +
-                    transactions.get(i).second() + "\t||\t" + balances.get(i));
+                    transactions.get(i).second() + "\t||\t" + calculateBalanceByTransaction(i));
         }
     }
 
