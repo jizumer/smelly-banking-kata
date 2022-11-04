@@ -20,21 +20,23 @@ public class Account implements AccountService {
     );
 
     public void deposit(LocalDate date, int amount) {
-        Integer previousBalance = 0;
-        if (balances.size() != 0) {
-            previousBalance = balances.get(balances.size() - 1);
-        }
-        balances.add(previousBalance + amount);
+        balances.add(calculateBalance() + amount);
         transactions.add(new Pair<>(date, amount));
     }
 
+
+
     public void withdraw(LocalDate date, int amount) {
+        balances.add(calculateBalance() - amount);
+        transactions.add(new Pair<>(date, -amount));
+    }
+
+    private Integer calculateBalance() {
         Integer previousBalance = 0;
         if (balances.size() != 0) {
             previousBalance = balances.get(balances.size() - 1);
         }
-        balances.add(previousBalance - amount);
-        transactions.add(new Pair<>(date, -amount));
+        return previousBalance;
     }
 
     public void printStatement() {
@@ -70,6 +72,4 @@ public class Account implements AccountService {
         }
         return averageBalanceWithBonuses / transactions.size();
     }
-
-
 }
