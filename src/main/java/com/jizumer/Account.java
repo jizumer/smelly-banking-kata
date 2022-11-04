@@ -20,15 +20,17 @@ public class Account implements AccountService {
     );
 
     public void deposit(LocalDate date, int amount) {
+        updateAccount(date, amount);
+    }
+
+    private void updateAccount(LocalDate date, int amount) {
         balances.add(calculateBalance() + amount);
         transactions.add(new Pair<>(date, amount));
     }
 
 
-
     public void withdraw(LocalDate date, int amount) {
-        balances.add(calculateBalance() - amount);
-        transactions.add(new Pair<>(date, -amount));
+        updateAccount(date, -amount);
     }
 
     private Integer calculateBalance() {
