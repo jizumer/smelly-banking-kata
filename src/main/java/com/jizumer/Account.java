@@ -44,6 +44,7 @@ public class Account implements AccountService {
     private Integer calculateCurrentBalance() {
         return balances.get(balances.size() - 1);
     }
+
     private Integer calculateBalanceByTransaction(int transactionNumber) {
         return balances.get(transactionNumber);
     }
@@ -58,11 +59,10 @@ public class Account implements AccountService {
     }
 
     public double calculateAverageBalance() {
-        double averageBalance = 0;
-        for (int i = 0; i < transactions.size(); i++) {
-            averageBalance += transactions.get(i).second();
-        }
-        return averageBalance / transactions.size();
+        return transactions
+                .stream().
+                mapToDouble(Pair::second)
+                .sum() / transactions.size();
     }
 
     public double calculateAverageBalanceWithBonuses() {
