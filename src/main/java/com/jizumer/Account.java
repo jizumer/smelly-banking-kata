@@ -10,6 +10,8 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
+    private List<Transaction> transactionsWithAbstraction = new ArrayList<>();
+
     public void deposit(LocalDate date, int amount) {
         updateAccount(date, amount);
     }
