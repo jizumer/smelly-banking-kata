@@ -85,8 +85,7 @@ public class Account implements AccountService {
                                         .first()
                                         .getYear()))
                 .findFirst()
-                .map(foundBonus ->
-                        (foundBonus.getBonus() < 0) ? 0.0 : foundBonus.getBonus())
+                .map(Bonus::getBonus)
                 .orElse(1.0);
     }
 }

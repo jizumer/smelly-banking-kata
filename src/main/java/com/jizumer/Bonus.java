@@ -14,6 +14,6 @@ public class Bonus {
     }
 
     public Double getBonus() {
-        return bonus;
+        return (bonus < 0) ? 0.0 : bonus;
     }
 }
