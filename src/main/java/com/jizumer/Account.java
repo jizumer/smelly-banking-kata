@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Account implements AccountService {
 
-    private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
+
     private List<Integer> balances = new ArrayList<>();
 
     private final Transactions transactionsWithAbstraction = new Transactions();
@@ -19,7 +19,6 @@ public class Account implements AccountService {
     private void updateAccount(LocalDate date, int amount) {
         transactionsWithAbstraction.addTransaction(date, amount);
         balances.add(calculateBalance() + amount);
-        transactions.add(new Pair<>(date, amount));
     }
 
 
