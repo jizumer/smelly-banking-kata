@@ -62,10 +62,10 @@ public class Account implements AccountService {
 
     public double calculateAverageBalanceWithBonuses() {
         double averageBalanceWithBonuses = 0;
-        for (int i = 0; i < transactions.size(); i++) {
-            averageBalanceWithBonuses += transactions.get(i).second() * (1 + calculateBonus(i) / 100);
+        for (int i = 0; i < transactionsWithAbstraction.size(); i++) {
+            averageBalanceWithBonuses += transactionsWithAbstraction.get(i).getAmount() * (1 + calculateBonus(i) / 100);
         }
-        return averageBalanceWithBonuses / transactions.size();
+        return averageBalanceWithBonuses / transactionsWithAbstraction.size();
     }
 
     private Double calculateBonus(int transactionNumber) {
