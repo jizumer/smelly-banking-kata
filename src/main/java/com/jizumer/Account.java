@@ -10,14 +10,14 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
-    private final List<Transaction> transactionsWithAbstraction = new ArrayList<>();
+    private final Transactions transactionsWithAbstraction = new Transactions();
 
     public void deposit(LocalDate date, int amount) {
         updateAccount(date, amount);
     }
 
     private void updateAccount(LocalDate date, int amount) {
-        transactionsWithAbstraction.add(new Transaction(date, amount));
+        transactionsWithAbstraction.addTransaction(date, amount);
         balances.add(calculateBalance() + amount);
         transactions.add(new Pair<>(date, amount));
     }
@@ -55,9 +55,7 @@ public class Account implements AccountService {
 
     public double calculateAverageBalance() {
         return transactionsWithAbstraction
-                .stream().
-                mapToDouble(Transaction::getAmount)
-                .sum() / transactionsWithAbstraction.size();
+                .calculateAverageBalance();
     }
 
     public double calculateAverageBalanceWithBonuses() {
