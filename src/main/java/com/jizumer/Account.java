@@ -54,10 +54,10 @@ public class Account implements AccountService {
     }
 
     public double calculateAverageBalance() {
-        return transactions
+        return transactionsWithAbstraction
                 .stream().
-                mapToDouble(Pair::second)
-                .sum() / transactions.size();
+                mapToDouble(Transaction::getAmount)
+                .sum() / transactionsWithAbstraction.size();
     }
 
     public double calculateAverageBalanceWithBonuses() {
