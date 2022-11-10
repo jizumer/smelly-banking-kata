@@ -13,4 +13,16 @@ public class Bonuses {
             new Bonus(2023, 1.75)
     );
 
+    public static Double calculateBonus(Integer year) {
+
+        return Bonuses.yearlyBonuses
+                .stream()
+                .filter(b ->
+                        b.getYear()
+                                .equals(year))
+                .findFirst()
+                .map(Bonus::getBonus)
+                .orElse(1.0);
+    }
+
 }
