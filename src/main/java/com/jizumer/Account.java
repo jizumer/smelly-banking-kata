@@ -74,10 +74,6 @@ public class Account implements AccountService {
     }
 
     private Double calculateBonus(int transactionNumber) {
-        return calculateBonusFunc(transactionNumber);
-    }
-
-    private Double calculateBonusFunc(int transactionNumber) {
 
         Double bonus = yearlyBonuses
                 .stream()
