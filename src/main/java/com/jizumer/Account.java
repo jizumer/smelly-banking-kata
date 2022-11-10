@@ -74,13 +74,24 @@ public class Account implements AccountService {
     }
 
     private Double calculateBonus(int transactionNumber) {
-        Double bonus = 1.0;
-        for (int j = 0; j < yearlyBonuses.size(); j++) {
-            if (yearlyBonuses.get(j).first() == transactions.get(transactionNumber).first().getYear()) {
-                bonus = yearlyBonuses.get(j).second();
-                break;
-            }
-        }
+        return calculateBonusFunc(transactionNumber);
+    }
+
+    private Double calculateBonusFunc(int transactionNumber) {
+
+        Double bonus = yearlyBonuses
+                .stream()
+                .filter(b ->
+                        b.first()
+                                .equals(transactions
+                                        .get(transactionNumber)
+                                        .first()
+                                        .getYear()))
+                .findFirst()
+                .orElse(new Pair<>(null, 1.0))
+                .second();
+
+
         if (bonus < 0) {
             bonus = 0.0;
         }
