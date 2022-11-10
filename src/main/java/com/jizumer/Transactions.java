@@ -7,8 +7,8 @@ import java.util.List;
 public class Transactions {
     private final List<Transaction> transactions = new ArrayList<>();
 
-    public void addTransaction(LocalDate date, int amount) {
-        transactions.add(new Transaction(date, amount));
+    public void addTransaction(LocalDate date, int amount, int balance) {
+        transactions.add(new Transaction(date, amount, balance));
     }
 
     public int size() {

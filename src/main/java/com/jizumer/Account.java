@@ -17,7 +17,7 @@ public class Account implements AccountService {
     }
 
     private void updateAccount(LocalDate date, int amount) {
-        transactions.addTransaction(date, amount);
+        transactions.addTransaction(date, amount, calculateBalance() + amount);
         balances.add(calculateBalance() + amount);
     }
 
