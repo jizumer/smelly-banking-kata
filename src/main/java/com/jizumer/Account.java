@@ -10,13 +10,14 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
-    private List<Transaction> transactionsWithAbstraction = new ArrayList<>();
+    private final List<Transaction> transactionsWithAbstraction = new ArrayList<>();
 
     public void deposit(LocalDate date, int amount) {
         updateAccount(date, amount);
     }
 
     private void updateAccount(LocalDate date, int amount) {
+        transactionsWithAbstraction.add(new Transaction(date, amount));
         balances.add(calculateBalance() + amount);
         transactions.add(new Pair<>(date, amount));
     }
@@ -45,9 +46,10 @@ public class Account implements AccountService {
 
     public void printStatement() {
         System.out.println("Date\t\t||\tAmount\t||\tBalance");
-        for (int i = 0; i < transactions.size(); i++) {
-            System.out.println(transactions.get(i).first().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")) + "\t||\t" +
-                    transactions.get(i).second() + "\t||\t" + calculateBalanceByTransaction(i));
+
+        for (int i = 0; i < transactionsWithAbstraction.size(); i++) {
+            System.out.println(transactionsWithAbstraction.get(i).getDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")) + "\t||\t" +
+                    transactionsWithAbstraction.get(i).getAmount() + "\t||\t" + calculateBalanceByTransaction(i));
         }
     }
 
