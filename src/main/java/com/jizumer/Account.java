@@ -10,16 +10,6 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
-
-    private List<Bonus> yearlyBonuses = List.of(
-            new Bonus(2018, 0.5),
-            new Bonus(2019, -0.75),
-            new Bonus(2020, 1.0),
-            new Bonus(2021, 1.25),
-            new Bonus(2022, 1.5),
-            new Bonus(2023, 1.75)
-    );
-
     public void deposit(LocalDate date, int amount) {
         updateAccount(date, amount);
     }
@@ -76,7 +66,7 @@ public class Account implements AccountService {
 
     private Double calculateBonus(int transactionNumber) {
 
-        return yearlyBonuses
+        return Bonuses.yearlyBonuses
                 .stream()
                 .filter(b ->
                         b.getYear()
