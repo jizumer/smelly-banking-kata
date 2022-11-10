@@ -10,13 +10,14 @@ public class Account implements AccountService {
     private List<Pair<LocalDate, Integer>> transactions = new ArrayList<>();
     private List<Integer> balances = new ArrayList<>();
 
-    private List<Pair<Integer, Double>> yearlyBonuses = List.of(
-            new Pair(2018, 0.5),
-            new Pair(2019, -0.75),
-            new Pair(2020, 1.0),
-            new Pair(2021, 1.25),
-            new Pair(2022, 1.5),
-            new Pair(2023, 1.75)
+
+    private List<Bonus> yearlyBonuses = List.of(
+            new Bonus(2018, 0.5),
+            new Bonus(2019, -0.75),
+            new Bonus(2020, 1.0),
+            new Bonus(2021, 1.25),
+            new Bonus(2022, 1.5),
+            new Bonus(2023, 1.75)
     );
 
     public void deposit(LocalDate date, int amount) {
@@ -78,14 +79,14 @@ public class Account implements AccountService {
         return yearlyBonuses
                 .stream()
                 .filter(b ->
-                        b.first()
+                        b.getYear()
                                 .equals(transactions
                                         .get(transactionNumber)
                                         .first()
                                         .getYear()))
                 .findFirst()
                 .map(foundBonus ->
-                        (foundBonus.second() < 0) ? 0.0 : foundBonus.second())
+                        (foundBonus.getBonus() < 0) ? 0.0 : foundBonus.getBonus())
                 .orElse(1.0);
     }
 }
