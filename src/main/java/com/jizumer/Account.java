@@ -75,8 +75,9 @@ public class Account implements AccountService {
 
     private Double calculateBonus(int transactionNumber) {
         Double bonus = 1.0;
+        final var transactionYear = getTransactionYear(transactionNumber);
         for (int j = 0; j < yearlyBonuses.size(); j++) {
-            if (yearlyBonuses.get(j).first() == transactions.get(transactionNumber).first().getYear()) {
+            if (yearlyBonuses.get(j).first() == transactionYear) {
                 bonus = yearlyBonuses.get(j).second();
                 break;
             }
@@ -85,5 +86,9 @@ public class Account implements AccountService {
             bonus = 0.0;
         }
         return bonus;
+    }
+
+    private int getTransactionYear(int transactionNumber) {
+        return transactions.get(transactionNumber).first().getYear();
     }
 }
