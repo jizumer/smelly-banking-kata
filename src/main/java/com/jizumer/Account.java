@@ -78,8 +78,8 @@ public class Account implements AccountService {
         Double bonus = yearlyBonuses.stream()
             .filter(yearlyBonus -> yearlyBonus.first().equals(transactionYear))
             .findFirst()
-            .orElse(new Pair<>(null, 1.0))
-            .second();
+            .map(Pair::second)
+            .orElse(1.0);
 
         if (bonus < 0) {
             bonus = 0.0;
