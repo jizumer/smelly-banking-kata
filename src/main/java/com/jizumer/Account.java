@@ -68,15 +68,15 @@ public class Account implements AccountService {
     public double calculateAverageBalanceWithBonuses() {
         double averageBalanceWithBonuses = 0;
         for (int i = 0; i < transactions.size(); i++) {
-            averageBalanceWithBonuses += transactions.get(i).second() * (1 + calculateBonus(i) / 100);
+            averageBalanceWithBonuses += transactions.get(i).second() * (1 + calculateBonus(
+                getTransactionYear(i)) / 100);
         }
         return averageBalanceWithBonuses / transactions.size();
     }
 
-    private Double calculateBonus(int transactionNumber) {
-        final var transactionYear = getTransactionYear(transactionNumber);
+    private Double calculateBonus(int year) {
         return yearlyBonuses.stream()
-            .filter(yearlyBonus -> yearlyBonus.first().equals(transactionYear))
+            .filter(yearlyBonus -> yearlyBonus.first().equals(year))
             .findFirst()
             .map(Pair::second)
             .map(b -> b < 0 ? 0.0 : b)
